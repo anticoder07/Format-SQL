@@ -3,7 +3,10 @@ name: Deploy Static FE to GitHub Pages
 on:
   push:
     branches:
-      - master  # hoặc tên nhánh bạn muốn dùng (ví dụ: master)
+      - main
+
+permissions:
+  contents: write   # 👈 Cho phép ghi code (cần cho gh-pages)
 
 jobs:
   deploy:
@@ -13,8 +16,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Setup GitHub Pages
+      - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./  # thư mục chứa index.html
+          publish_branch: gh-pages  # 👈 chỉ định branch deploy
